@@ -28,7 +28,9 @@ public class Controller {
     private TableView<Item> databaseTable;
     private Pane storicoView; // Contenitore per il futuro grafico
     private Pane filterTable; // Contenitore per il futuro filtro per la tabella
-    private Pane nullTable; // Vuoto da mettere a sx della tabella
+    private Pane nullTable; // Vuoto da mettere a dx della tabella
+    private Pane storicoPane; // Vuoto da mettere a dx della tabella
+
     private ObservableList<Item> allItems = FXCollections.observableArrayList(); // Lista di appoggio per memorizzare i dati del database
 
     public Controller() {
@@ -42,7 +44,7 @@ public class Controller {
         // Usiamo StackPane per centrare perfettamente la Label
         StackPane welcomePane = new StackPane(welcomeLabel);
         
-        // 1. Inizializzazione della TableView e dei filtri laterali (Database)
+        // 1.0 Inizializzazione della TableView e dei filtri laterali (Database)
         databaseTable = new TableView<>();
         filterTable = new VBox();
         nullTable = new VBox();
@@ -86,7 +88,7 @@ public class Controller {
         cmbAnno.getItems().addAll("2013/2014", "2014/2015", "2015/2016"); // metti tutti gli anni disponibili
         cmbAnno.setValue("Nessun filtro");
 
-        // applica filtro
+        // 1.3 applica filtro
         cmbRegioni.setOnAction(e -> applicaFiltri(cmbRegioni.getValue(),cmbAnno.getValue()));
         cmbAnno.setOnAction(e -> applicaFiltri(cmbRegioni.getValue(),cmbAnno.getValue()));
 
@@ -100,13 +102,19 @@ public class Controller {
         initializeDatabaseTable();
 
         
-        // 2. Inizializzazione della vista "Storico" (Inizialmente vuota)
+        // 2.0 Inizializzazione della vista "Storico" (Inizialmente vuota)
         storicoView = new VBox(); // VBox o StackPane, a seconda delle esigenze
         storicoView.setPadding(new Insets(10));
-        // Aggiungi un messaggio placeholder per ora
+        Label storicoLabel = new Label("WORK IN PROGRESS: Antonio pensaci tu");
+        storicoLabel.setStyle("-fx-font-size: 30px; -fx-text-fill: #911;"); 
+        StackPane.setMargin(storicoLabel, new Insets(0, 0, 50, 0));
+        
+        // Usiamo StackPane per centrare perfettamente la Label
+        storicoPane = new StackPane(storicoLabel);
+
         // ((VBox) storicoView).getChildren().add(new javafx.scene.control.Label("Area per il Grafico Storico"));
         
-        // 3. Creazione e Configurazione dei Pulsanti (Top)
+        // 3.0 Creazione e Configurazione dei Pulsanti (Top)
         Button databaseButton = new Button("Database");
         Button storicoButton = new Button("Storico");
         
@@ -118,7 +126,7 @@ public class Controller {
         
         root.setTop(topButtons);
         
-        // 4. Settaggio della vista iniziale
+        // 4.0 Settaggio della vista iniziale
         aggiornaDati();   // Carica i dati
         root.setCenter(welcomePane);
     }
@@ -172,16 +180,12 @@ public class Controller {
     
     @FXML
     private void showStoricoView() {
-        root.setLeft(null);
         root.setRight(null);
-        // mostra il contenitore per il Grafico Storico
-        // quando avrai il BarChart, lo aggiungerai qui.
-        // esempio: root.setCenter(myBarChart); 
-        // per ora, mostra il Pane vuoto
-        root.setCenter(storicoView); 
+        root.setLeft(null);
+        root.setCenter(storicoPane);
     }
 
-    // --- Metodo di Caricamento Dati (come prima, ma usa databaseTable) ---
+    // Metodo di Caricamento Dati
     
     @FXML
     private void aggiornaDati() {
