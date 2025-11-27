@@ -59,11 +59,11 @@ public class Controller {
         filterTable.setPadding(new Insets(5,50,10,10));
         nullTable.setPadding(new Insets(10));
         
-        // 1.1 Aggiunta di filtri
-        Label lblFiltro = new Label("Filtro Regione");
+        // 1.1 Aggiunta di filtro regione
+        Label lblFiltroRegioni = new Label("Filtro Regione");
 
         ComboBox<String> cmbRegioni = new ComboBox<>();
-        cmbRegioni.getItems().add("Tutte");
+        cmbRegioni.getItems().add("Nessun filtro");
         cmbRegioni.getItems().addAll(
             "Abruzzo",
             "Basilicata",
@@ -86,18 +86,26 @@ public class Controller {
             "Valle d'Aosta",
             "Veneto"
         );
-        cmbRegioni.setValue("Tutte");
+        cmbRegioni.setValue("Nessun filtro");
+
+        // 1.2 Aggiunta filtro anno
+        Label lblFiltroAnno = new Label("Filtro Anno");
+
+        ComboBox<String> cmbAnno = new ComboBox<>();
+        cmbAnno.getItems().add("Nessun filtro");
+        cmbAnno.getItems().addAll("2013/2014", "2014/2015", "2015/2016"); // metti tutti gli anni disponibili
+        cmbAnno.setValue("Nessun filtro");
 
         // applica filtro
-        cmbRegioni.setOnAction(e -> filtraRegioni(cmbRegioni.getValue()));
+        cmbRegioni.setOnAction(e -> applicaFiltri(cmbRegioni.getValue(),cmbAnno.getValue()));
+        cmbAnno.setOnAction(e -> applicaFiltri(cmbRegioni.getValue(),cmbAnno.getValue()));
 
-        VBox root1 = new VBox(10, lblFiltro, cmbRegioni);
+        VBox root1 = new VBox(10, lblFiltroRegioni, cmbRegioni, lblFiltroAnno, cmbAnno);
         root1.setPadding(new Insets(20));
 
         filterTable.getChildren().add(root1);
         
-
-
+        
         // 1.4 Inizializzazione della tabella
         initializeDatabaseTable();
 
@@ -261,17 +269,15 @@ public class Controller {
 
     }
 
-    private void filtraRegioni(String regione) {
-
-        if (regione.equals("Tutte")) {
-            databaseTable.setItems(allItems);
-            return;
-        }
+    private void applicaFiltri(String regioneSelezionata, String annoSelezionato) {
 
         ObservableList<Item> filtrati = FXCollections.observableArrayList();
 
         for (Item it : allItems) {
-            if (it.getRegione().equals(regione)) {
+            boolean matchRegione = regioneSelezionata.equals("Nessun filtro") || it.getRegione().equals(regioneSelezionata);
+            boolean matchAnno = annoSelezionato.equals("Nessun filtro") || it.getAnno().equals(annoSelezionato);
+
+            if (matchRegione && matchAnno) {
                 filtrati.add(it);
             }
         }
