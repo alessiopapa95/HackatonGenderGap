@@ -88,6 +88,8 @@ public class Controller {
         cmbAnno.getItems().addAll("2013/2014", "2014/2015", "2015/2016"); // metti tutti gli anni disponibili
         cmbAnno.setValue("Nessun filtro");
 
+        // 1.3 Aggiunta filtro 
+
         // 1.3 applica filtro
         cmbRegioni.setOnAction(e -> applicaFiltri(cmbRegioni.getValue(),cmbAnno.getValue()));
         cmbAnno.setOnAction(e -> applicaFiltri(cmbRegioni.getValue(),cmbAnno.getValue()));
@@ -180,10 +182,12 @@ public class Controller {
     
     @FXML
     private void showStoricoView() {
-        root.setRight(null);
-        root.setLeft(null);
+        //root.setRight(null);
+        //root.setLeft(null);
         root.setCenter(storicoPane);
     }
+
+
 
     // Metodo di Caricamento Dati
     
