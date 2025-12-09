@@ -26,7 +26,7 @@ Passaggi da eseguire:
 
 In alternativa, compilare l'applicativo tramite il terminale
 
-1.  Aprire da terminale la cartella HackatonGenderGap
+1.  Aprire da terminale la cartella HackathonGenderGap
 
 2.  Compilare eseguendo il comando: 
     javac --module-path lib/javafx-sdk-17.0.17/lib --add-modules javafx.controls,javafx.fxml -cp "lib/mysql-connector-j-9.5.0.jar" -d out $(find src -name "*.java")
