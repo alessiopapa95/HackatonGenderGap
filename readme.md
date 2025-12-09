@@ -1,19 +1,19 @@
-<h1>Hackaton Gender Gap</h1>
+<h1>Hackathon Gender Gap</h1>
 
 Consultare il file Report.pdf per tutte le informazioni relative a questo progetto.
 
 <h2>Guida all'utilizzo dell'applicazione</h2>
 
-<h3>Importare database hackaton.sql</h3>
+<h3>Importare database hackathon.sql</h3>
 
 Prerequisito:
 - Aver installato MySQL sul proprio terminale ed aver avviato il server
 
 Passaggi da eseguire:
 1.  Utilizzare da terminale il comando:
-    "mysql -u [nome_utente] -p Hackaton < backup_database.sql"
+    "mysql -u [nome_utente] -p Hackathon < backup_database.sql"
 
-2.  Accedere al contenuto del file Hackatongendergap/src/dashboard/DatabaseConnection.java
+2.  Accedere al contenuto del file Hackathongendergap/src/dashboard/DatabaseConnection.java
     e modificare il contenuto di USER e PASSWORD, inserendo quelli del proprio utente MySQL.
 
 <h3>Avviare l'applicazione</h3>
